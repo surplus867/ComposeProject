@@ -3,16 +3,23 @@ package com.example.composeProject
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material.rememberDrawerState
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.composeProject.navigation.SetupNavigation
 import com.example.composeProject.ui.theme.MyApplication34Theme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    
+    private lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplication34Theme {
-
+                navController = rememberNavController()
+                SetupNavigation(navController = navController)
             }
         }
     }
