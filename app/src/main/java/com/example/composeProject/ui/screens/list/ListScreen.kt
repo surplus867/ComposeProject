@@ -1,45 +1,43 @@
 package com.example.composeProject.ui.screens.list
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import android.annotation.SuppressLint
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
+import androidx.compose.material.ListItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.composeProject.ui.viewmodels.SharedViewModel
 import com.example.myfirstandroidproject.R
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun ListScreen(
     navigateToTaskScreen: (Int) -> Unit
 ) {
     Scaffold(
-        content = { padding ->
-            Column(
-                modifier = Modifier.padding(padding)
-            ) {
-            }
-
+        topBar = {
+            ListAppBar()
         },
+        content = {},
         floatingActionButton = {
-            ListFab(onFabClicked = navigateToTaskScreen)
-
+            ListFab(navigateToTaskScreen = navigateToTaskScreen)
         }
     )
 }
 
 @Composable
 fun ListFab(
-    onFabClicked: (Int) -> Unit
+    navigateToTaskScreen: (Int) -> Unit
 ) {
     FloatingActionButton(
         onClick = {
-            onFabClicked(-1)
+            navigateToTaskScreen(-1)
         }
     ) {
         Icon(

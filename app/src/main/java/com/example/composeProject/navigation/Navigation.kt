@@ -6,11 +6,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.example.composeProject.navigation.destination.listComposable
 import com.example.composeProject.navigation.destination.taskComposable
+import com.example.composeProject.ui.viewmodels.SharedViewModel
 import com.example.composeProject.util.Constants.LIST_SCREEN
 
 @Composable
 fun SetupNavigation(
-    navController: NavHostController
+    navController: NavHostController,
 ){
     val screen = remember(navController) {
         Screens(navController = navController)
@@ -21,7 +22,7 @@ fun SetupNavigation(
         startDestination = LIST_SCREEN
     ) {
         listComposable(
-            navigateToTaskScreen = screen.task
+            navigateToTaskScreen = screen.task,
         )
         taskComposable(
             navigateToListScreen = screen.list

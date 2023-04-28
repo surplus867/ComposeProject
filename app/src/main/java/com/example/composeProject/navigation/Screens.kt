@@ -1,16 +1,16 @@
 package com.example.composeProject.navigation
 
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.composeProject.util.Action
 import com.example.composeProject.util.Constants.LIST_SCREEN
 
-class Screens(navController: NavController) {
+class Screens(navController: NavHostController) {
     val list: (Action) -> Unit = { action ->
-        navController.navigate("list/${action.name}") {
-            popUpTo(LIST_SCREEN) { inclusive= true}
+        navController.navigate(route = "list/${action.name}") {
+            popUpTo(LIST_SCREEN) { inclusive = true}
         }
     }
     val task: (Int) -> Unit = { taskId ->
-        navController.navigate("task/$taskId")
+        navController.navigate(route ="task/$taskId")
     }
 }

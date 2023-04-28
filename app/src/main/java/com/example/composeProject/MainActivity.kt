@@ -3,11 +3,13 @@ package com.example.composeProject
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.material.rememberDrawerState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.composeProject.navigation.SetupNavigation
 import com.example.composeProject.ui.theme.MyApplication34Theme
+import com.example.composeProject.ui.viewmodels.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +21,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplication34Theme {
                 navController = rememberNavController()
-                SetupNavigation(navController = navController)
+                SetupNavigation(
+                    navController = navController)
             }
         }
     }
