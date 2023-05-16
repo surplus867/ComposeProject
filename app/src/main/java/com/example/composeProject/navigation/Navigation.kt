@@ -12,6 +12,7 @@ import com.example.composeProject.util.Constants.LIST_SCREEN
 @Composable
 fun SetupNavigation(
     navController: NavHostController,
+    sharedViewModel: SharedViewModel
 ){
     val screen = remember(navController) {
         Screens(navController = navController)
@@ -23,6 +24,7 @@ fun SetupNavigation(
     ) {
         listComposable(
             navigateToTaskScreen = screen.task,
+            sharedViewModel = sharedViewModel
         )
         taskComposable(
             navigateToListScreen = screen.list
