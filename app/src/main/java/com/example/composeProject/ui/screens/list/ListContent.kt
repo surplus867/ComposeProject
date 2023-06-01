@@ -1,37 +1,70 @@
 package com.example.composeProject.ui.screens.list
 
+import android.annotation.SuppressLint
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.font.FontVariation.weight
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import com.example.composeProject.data.models.Priority
 import com.example.composeProject.data.models.ToDoTask
 import com.example.composeProject.ui.theme.LARGE_PADDING
+import com.example.composeProject.ui.theme.PRIORITY_INDICATOR_SIZE
+import com.example.composeProject.ui.theme.SMALL_PADDING
 import com.example.composeProject.ui.theme.TASK_ITEM_ELEVATION
 import com.example.composeProject.ui.theme.taskItemBackgroundColor
 import com.example.composeProject.ui.theme.taskItemTextColor
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.composeProject.data.models.Priority
-import com.example.composeProject.ui.theme.PRIORITY_INDICATOR_SIZE
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ListContent() {
-
+fun ListContent(
+tasks: List<ToDoTask>,
+navigateToTaskScreen: (taskId: Int) -> Unit,
+appBarHeight: Dp
+) {
+    Scaffold(
+        topBar = {
+            // Define your top bar content here
+        }
+    ) {
+        LazyColumn(
+            contentPadding = PaddingValues(top = appBarHeight)
+        ) {
+            items(
+                items = tasks,
+                key = { task ->
+                    task.id
+                }
+            ) { task ->
+                TaskItem(
+                    toDoTask = task,
+                    navigateToTaskScreen = navigateToTaskScreen
+                )
+            }
+        }
+    }
 }
-
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TaskItem(
@@ -63,15 +96,15 @@ fun TaskItem(
                     fontWeight = FontWeight.Bold,
                     maxLines = 1
                 )
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
                     contentAlignment = Alignment.TopEnd
                 ) {
                     Canvas(
                         modifier = Modifier
-                            .width(PRIORITY_INDICATOR_SIZE)
-                            .height(PRIORITY_INDICATOR_SIZE)
+                            .size(PRIORITY_INDICATOR_SIZE)
                     )
                     {
                         drawCircle(
@@ -82,7 +115,7 @@ fun TaskItem(
             }
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = toDoTask.description,
+            text = toDoTask.description,
                 color = MaterialTheme.colors.taskItemTextColor,
                 style = MaterialTheme.typography.subtitle1,
                 maxLines = 2,
@@ -92,15 +125,16 @@ fun TaskItem(
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 @Preview
 fun TaskItemPreview() {
     TaskItem(
         toDoTask = ToDoTask(
-            0,
-            "Title",
-            "Some random text",
-            Priority.MEDIUM
+            id = 0,
+            title = "Title",
+            description = "Some random text",
+            priority = Priority.MEDIUM
         ),
         navigateToTaskScreen = {}
     )
