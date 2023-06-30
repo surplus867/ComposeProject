@@ -39,32 +39,21 @@ import com.example.composeProject.ui.theme.taskItemTextColor
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ListContent(
-tasks: List<ToDoTask>,
-navigateToTaskScreen: (taskId: Int) -> Unit,
-appBarHeight: Dp
+    tasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit,
+    appBarHeight: Dp
 ) {
-    Scaffold(
-        topBar = {
-            // Define your top bar content here
-        }
-    ) {
-        LazyColumn(
-            contentPadding = PaddingValues(top = appBarHeight)
-        ) {
-            items(
-                items = tasks,
-                key = { task ->
-                    task.id
-                }
-            ) { task ->
-                TaskItem(
-                    toDoTask = task,
-                    navigateToTaskScreen = navigateToTaskScreen
-                )
-            }
-        }
+    if (tasks.isEmpty()) {
+        EmptyContent()
+    } else {
+        DisplayTasks(
+            tasks = tasks,
+            navigateToTaskScreen = navigateToTaskScreen,
+            appBarHeight = appBarHeight
+        )
     }
 }
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TaskItem(
@@ -115,12 +104,64 @@ fun TaskItem(
             }
             Text(
                 modifier = Modifier.fillMaxWidth(),
-            text = toDoTask.description,
+                text = toDoTask.description,
                 color = MaterialTheme.colors.taskItemTextColor,
                 style = MaterialTheme.typography.subtitle1,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
+        }
+    }
+}
+
+@Composable
+fun DisplayTasks(
+    tasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit
+) {
+    LazyColumn {
+        items(
+            items = tasks,
+            key = { tasks ->
+                tasks.id
+            }
+        ) { task ->
+            TaskItem(
+                toDoTask = task,
+                navigateToTaskScreen = navigateToTaskScreen
+            )
+
+        }
+    }
+
+}
+
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@Composable
+fun DisplayTasks(
+    tasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit,
+    appBarHeight: Dp
+) {
+    Scaffold(
+        topBar = {
+            // Define your top bar content here
+        }
+    ) {
+        LazyColumn(
+            contentPadding = PaddingValues(top = appBarHeight)
+        ) {
+            items(
+                items = tasks,
+                key = { task ->
+                    task.id
+                }
+            ) { task ->
+                TaskItem(
+                    toDoTask = task,
+                    navigateToTaskScreen = navigateToTaskScreen
+                )
+            }
         }
     }
 }

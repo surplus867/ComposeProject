@@ -1,7 +1,6 @@
 package com.example.composeProject.ui.screens.list
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
