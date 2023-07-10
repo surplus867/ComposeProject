@@ -21,7 +21,7 @@ import com.example.composeProject.util.SearchAppBarState
 import com.example.myfirstandroidproject.R
 
 @ExperimentalMaterialApi
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
 @Composable
 fun ListScreen(
     navigateToTaskScreen: (taskId: Int) -> Unit,

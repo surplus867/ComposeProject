@@ -35,22 +35,25 @@ import com.example.composeProject.ui.theme.SMALL_PADDING
 import com.example.composeProject.ui.theme.TASK_ITEM_ELEVATION
 import com.example.composeProject.ui.theme.taskItemBackgroundColor
 import com.example.composeProject.ui.theme.taskItemTextColor
+import com.example.composeProject.util.RequestState
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ListContent(
-    tasks: List<ToDoTask>,
+    tasks: RequestState<List<ToDoTask>>,
     navigateToTaskScreen: (taskId: Int) -> Unit,
     appBarHeight: Dp
 ) {
-    if (tasks.isEmpty()) {
-        EmptyContent()
-    } else {
-        DisplayTasks(
-            tasks = tasks,
-            navigateToTaskScreen = navigateToTaskScreen,
-            appBarHeight = appBarHeight
-        )
+    if(tasks is RequestState.Success) {
+        if (tasks.data.isEmpty()) {
+            EmptyContent()
+        } else {
+            DisplayTasks(
+                tasks = tasks.data,
+                navigateToTaskScreen = navigateToTaskScreen,
+                appBarHeight = appBarHeight
+            )
+        }
     }
 }
 
