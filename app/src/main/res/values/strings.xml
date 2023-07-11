@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">My Application 34</string>
 
+    <string name="drop_down_arrow">Drop-Down Arrow Icon</string>
     <string name="update_icon">Update</string>
     <string name="delete_icon">Delete</string>
     <string name="back_arrow">Back Arrow</string>
