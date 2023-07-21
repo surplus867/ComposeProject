@@ -14,7 +14,7 @@ import com.example.composeProject.ui.screens.task.TaskAppBar
 import com.example.composeProject.ui.screens.task.TaskContent
 import com.example.composeProject.util.Action
 
-val AppBarHeight = 56.dp
+val AppBarHeight = 54.dp
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun TaskScreen(
