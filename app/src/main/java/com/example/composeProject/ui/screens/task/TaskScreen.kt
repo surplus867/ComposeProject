@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.composeProject.data.models.Priority
 import com.example.composeProject.data.models.ToDoTask
 import com.example.composeProject.ui.screens.task.TaskAppBar
 import com.example.composeProject.ui.screens.task.TaskContent
+import com.example.composeProject.ui.viewmodels.SharedViewModel
 import com.example.composeProject.util.Action
 
 val AppBarHeight = 54.dp
@@ -19,8 +21,13 @@ val AppBarHeight = 54.dp
 @Composable
 fun TaskScreen(
     selectedTask: ToDoTask?,
+    sharedViewModel: SharedViewModel,
     navigateToListScreen: (Action) -> Unit
 ){
+
+    val title: String by sharedViewModel.title
+    val description: String by sharedViewModel.description
+    val priority: Priority by sharedViewModel.priority
 
     Scaffold(
         topBar = {
@@ -36,12 +43,18 @@ fun TaskScreen(
                     .padding(top = AppBarHeight)
             ) {
                 TaskContent(
-                    title = selectedTask?.title ?: "",
-                    onTitleChange = {},
-                    description = "",
-                    onDescriptionChange = {},
-                    priority = Priority.LOW,
-                    onPrioritySelected = {}
+                    title = selectedTask?.title ?: title,
+                    onTitleChange = {
+                                    sharedViewModel.title.value = it
+                    },
+                    description = description,
+                    onDescriptionChange = {
+                                          sharedViewModel.description.value = it
+                    },
+                    priority = priority,
+                    onPrioritySelected = {
+                        sharedViewModel.priority.value = it
+                    }
                 )
             }
         }
