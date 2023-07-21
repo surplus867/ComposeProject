@@ -43,9 +43,9 @@ fun TaskScreen(
                     .padding(top = AppBarHeight)
             ) {
                 TaskContent(
-                    title = selectedTask?.title ?: title,
+                    title = title,
                     onTitleChange = {
-                                    sharedViewModel.title.value = it
+                                    sharedViewModel.updateTitle(it)
                     },
                     description = description,
                     onDescriptionChange = {
