@@ -7,7 +7,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Scaffold
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -21,7 +21,7 @@ import com.example.composeProject.util.SearchAppBarState
 import com.example.myfirstandroidproject.R
 
 @ExperimentalMaterialApi
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "SuspiciousIndentation")
 @Composable
 fun ListScreen(
     navigateToTaskScreen: (taskId: Int) -> Unit,
@@ -54,7 +54,7 @@ fun ListScreen(
             )
         },
         content = {
-            val appBarHeight = 56.dp
+            val appBarHeight = 5.dp
                   ListContent(
                       tasks = allTasks,
                       navigateToTaskScreen = navigateToTaskScreen,
