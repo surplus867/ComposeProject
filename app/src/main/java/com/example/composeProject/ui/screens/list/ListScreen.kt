@@ -114,10 +114,18 @@ fun DisplaySnackBar(
         if(action != Action.NO_ACTION) {
             scope.launch {
                 val snackBarResult = scaffoldState.snackbarHostState.showSnackbar(
-                    message = "${action.name}: $taskTitle",
+                    message = setMessage(action = action, taskTitle = taskTitle),
                     actionLabel = "OK"
                 )
             }
         }
     }
+}
+
+private fun setMessage(action: Action, taskTitle: String): String {
+    return when(action) {
+        Action.DELETE_ALL -> "All Tasks Removed."
+        else -> "${action.name}: $taskTitle"
+    }
+
 }
