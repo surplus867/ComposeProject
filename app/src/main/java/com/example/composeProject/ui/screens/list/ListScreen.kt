@@ -40,6 +40,7 @@ fun ListScreen(
     val action by sharedViewModel.action
 
     val allTasks by sharedViewModel.allTasks.collectAsState()
+    val searchTasks by sharedViewModel.searchTasks.collectAsState()
    /* for(task in allTasks.value){
        Log.d("ListScreen", task.title)
     }*/
@@ -69,7 +70,9 @@ fun ListScreen(
         content = {
             val appBarHeight = 5.dp
                   ListContent(
-                      tasks = allTasks,
+                      allTasks = allTasks,
+                      searchedTasks = searchTasks,
+                      searchAppBarState =searchAppBarState,
                       navigateToTaskScreen = navigateToTaskScreen,
                       appBarHeight = appBarHeight
             )

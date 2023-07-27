@@ -26,30 +26,59 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.example.composeProject.data.models.Priority
 import com.example.composeProject.data.models.ToDoTask
+import com.example.composeProject.ui.screens.task.AppBarHeight
 import com.example.composeProject.ui.theme.LARGE_PADDING
 import com.example.composeProject.ui.theme.PRIORITY_INDICATOR_SIZE
 import com.example.composeProject.ui.theme.TASK_ITEM_ELEVATION
 import com.example.composeProject.ui.theme.taskItemBackgroundColor
 import com.example.composeProject.ui.theme.taskItemTextColor
 import com.example.composeProject.util.RequestState
+import com.example.composeProject.util.SearchAppBarState
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ListContent(
-    tasks: RequestState<List<ToDoTask>>,
+    allTasks: RequestState<List<ToDoTask>>,
+    searchedTasks: RequestState<List<ToDoTask>>,
+    searchAppBarState: SearchAppBarState,
     navigateToTaskScreen: (taskId: Int) -> Unit,
     appBarHeight: Dp
 ) {
-    if(tasks is RequestState.Success) {
-        if (tasks.data.isEmpty()) {
-            EmptyContent()
+    if(searchAppBarState == SearchAppBarState.TRIGGERED) {
+         if (searchedTasks is RequestState.Success) {
+             HandleListContent(
+                 tasks = searchedTasks.data,
+                 navigateToTaskScreen = navigateToTaskScreen,
+                 appBarHeight = appBarHeight
+
+             )
+         }
         } else {
-            DisplayTasks(
-                tasks = tasks.data,
-                navigateToTaskScreen = navigateToTaskScreen,
-                appBarHeight = appBarHeight
-            )
-        }
+            if (allTasks is RequestState.Success) {
+                HandleListContent(
+                    tasks = allTasks.data,
+                    navigateToTaskScreen = navigateToTaskScreen,
+                    appBarHeight = appBarHeight
+                )
+            }
+    }
+    }
+
+@Composable
+fun HandleListContent(
+    tasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit,
+    appBarHeight: Dp
+) {
+
+    if (tasks.isEmpty()) {
+        EmptyContent()
+    } else {
+        DisplayTasks(
+            tasks = tasks,
+            navigateToTaskScreen = navigateToTaskScreen,
+            appBarHeight = appBarHeight
+        )
     }
 }
 
@@ -111,28 +140,6 @@ fun TaskItem(
             )
         }
     }
-}
-
-@Composable
-fun DisplayTasks(
-    tasks: List<ToDoTask>,
-    navigateToTaskScreen: (taskId: Int) -> Unit
-) {
-    LazyColumn {
-        items(
-            items = tasks,
-            key = { tasks ->
-                tasks.id
-            }
-        ) { task ->
-            TaskItem(
-                toDoTask = task,
-                navigateToTaskScreen = navigateToTaskScreen
-            )
-
-        }
-    }
-
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
