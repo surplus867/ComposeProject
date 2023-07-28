@@ -1,6 +1,7 @@
 package com.example.composeProject.ui.screens.list
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,29 +41,54 @@ import com.example.composeProject.util.SearchAppBarState
 fun ListContent(
     allTasks: RequestState<List<ToDoTask>>,
     searchedTasks: RequestState<List<ToDoTask>>,
+    lowPriorityTasks: List<ToDoTask>,
+    highPriorityTasks: List<ToDoTask>,
+    sortState: RequestState<Priority>,
     searchAppBarState: SearchAppBarState,
     navigateToTaskScreen: (taskId: Int) -> Unit,
     appBarHeight: Dp
 ) {
-    if(searchAppBarState == SearchAppBarState.TRIGGERED) {
-         if (searchedTasks is RequestState.Success) {
-             HandleListContent(
-                 tasks = searchedTasks.data,
-                 navigateToTaskScreen = navigateToTaskScreen,
-                 appBarHeight = appBarHeight
+    if (sortState is RequestState.Success) {
+        when {
+            searchAppBarState == SearchAppBarState.TRIGGERED -> {
+                if (searchedTasks is RequestState.Success) {
+                    HandleListContent(
+                        tasks = searchedTasks.data,
+                        navigateToTaskScreen = navigateToTaskScreen,
+                        appBarHeight = appBarHeight
 
-             )
-         }
-        } else {
-            if (allTasks is RequestState.Success) {
+                    )
+                }
+            }
+            sortState.data == Priority.NONE -> {
+                if (allTasks is RequestState.Success) {
+                    HandleListContent(
+                        tasks = allTasks.data,
+                        navigateToTaskScreen = navigateToTaskScreen,
+                        appBarHeight = appBarHeight
+                    )
+                }
+            }
+            sortState.data == Priority.LOW -> {
+                Log.d("Debug", "Low Priority Tasks: $lowPriorityTasks")
                 HandleListContent(
-                    tasks = allTasks.data,
+                    tasks = lowPriorityTasks,
                     navigateToTaskScreen = navigateToTaskScreen,
                     appBarHeight = appBarHeight
                 )
             }
+            sortState.data == Priority.HIGH -> {
+                // Add log statements to inspect the values
+                Log.d("Debug", "High Priority Tasks: $highPriorityTasks")
+                HandleListContent(
+                    tasks = highPriorityTasks,
+                    navigateToTaskScreen = navigateToTaskScreen,
+                    appBarHeight = appBarHeight
+                )
+            }
+        }
     }
-    }
+}
 
 @Composable
 fun HandleListContent(
