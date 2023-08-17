@@ -9,7 +9,7 @@ import com.example.composeProject.navigation.destination.listComposable
 import com.example.composeProject.navigation.destination.splashComposable
 import com.example.composeProject.navigation.destination.taskComposable
 import com.example.composeProject.ui.viewmodels.SharedViewModel
-import com.example.composeProject.util.Constants.LIST_SCREEN
+import com.example.composeProject.util.Constants
 import com.example.composeProject.util.Constants.SPLASH_SCREEN
 
 @ExperimentalMaterialApi

@@ -1,6 +1,9 @@
 package com.example.composeProject.navigation.destination
 
-import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -14,16 +17,18 @@ import com.example.composeProject.util.Action
 import com.example.composeProject.util.Constants.TASK_ARGUMENT_KEY
 import com.example.composeProject.util.Constants.TASK_SCREEN
 
+@OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.taskComposable(
     sharedViewModel: SharedViewModel,
     navigateToListScreen: (Action) -> Unit
-){
+) {
     composable(
         route = TASK_SCREEN,
-        arguments = listOf(navArgument(TASK_ARGUMENT_KEY){
+        arguments = listOf(navArgument(TASK_ARGUMENT_KEY) {
             type = NavType.IntType
-        })
-    ){ navBackStackEntry ->
+        }),
+
+        ) { navBackStackEntry ->
         val taskId = navBackStackEntry.arguments!!.getInt(TASK_ARGUMENT_KEY)
         //Log.d("TaskComposable", taskId.toString())
         LaunchedEffect(key1 = taskId) {
@@ -36,11 +41,19 @@ fun NavGraphBuilder.taskComposable(
                 sharedViewModel.updateTaskFields(selectedTask = selectedTask)
             }
         }
-
-        TaskScreen(
-            selectedTask = selectedTask,
-            sharedViewModel = sharedViewModel,
-            navigateToListScreen = navigateToListScreen
-        )
+        // AnimatedVisibility animates the visibility of composables
+        AnimatedVisibility(
+            visible = true,
+            enter = slideInHorizontally(
+                initialOffsetX = { fullWidth -> -fullWidth }, // Slide in from the left edge
+                animationSpec = tween(durationMillis = 300)
+            )
+        ) {
+            TaskScreen(
+                selectedTask = selectedTask,
+                sharedViewModel = sharedViewModel,
+                navigateToListScreen = navigateToListScreen,
+            )
+        }
     }
 }

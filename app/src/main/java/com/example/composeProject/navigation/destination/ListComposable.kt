@@ -1,6 +1,6 @@
 package com.example.composeProject.navigation.destination
 
-import android.util.Log
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavGraphBuilder
@@ -13,6 +13,7 @@ import com.example.composeProject.util.Constants.LIST_ARGUMENT_KEY
 import com.example.composeProject.util.Constants.LIST_SCREEN
 import com.example.composeProject.util.toAction
 
+@OptIn(ExperimentalAnimationApi::class)
 @ExperimentalMaterialApi
 fun NavGraphBuilder.listComposable(
     navigateToTaskScreen: (taskId: Int) -> Unit,
