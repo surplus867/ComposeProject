@@ -1,5 +1,6 @@
  package com.example.composeProject.ui.screens.splash
 
+/*
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -23,6 +24,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.composeProject.navigation.Screens
 import com.example.composeProject.ui.theme.LOGO_HEIGHT
@@ -57,23 +59,26 @@ fun SplashScreen(
         navigateToListScreen()
     }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colors.splashScreenBackground),
-        contentAlignment = Alignment.Center
-        ) {
-            Image(
-                modifier = Modifier
-                    .size(LOGO_HEIGHT)
-                    .offset(y = offsetState)
-                    .alpha(alpha = alphaState),
-                painter = painterResource(id = getLogo()),
-                contentDescription = stringResource(id = R.string.to_do_logo)
-            )
-    }
+    Splash(offsetState = offsetState, alphaState = alphaState)
 }
-
+ @Composable
+ fun Splash(offsetState: Dp, alphaState: Float) {
+     Box(
+         modifier = Modifier
+             .fillMaxSize()
+             .background(MaterialTheme.colors.splashScreenBackground),
+         contentAlignment = Alignment.Center
+     ) {
+         Image(
+             modifier = Modifier
+                 .size(LOGO_HEIGHT)
+                 .offset(y = offsetState)
+                 .alpha(alpha = alphaState),
+             painter = painterResource(id = getLogo()),
+             contentDescription = stringResource(id = R.string.to_do_logo)
+         )
+     }
+ }
 @Composable
 fun getLogo(): Int {
     return if(isSystemInDarkTheme()){
@@ -86,7 +91,5 @@ fun getLogo(): Int {
 @Composable
 @Preview
 private fun SplashScreenPreview() {
-    SplashScreen(
-        navigateToListScreen = {}
-    )
-}
+    Splash(offsetState = 0.dp, alphaState = 1f)
+}*/

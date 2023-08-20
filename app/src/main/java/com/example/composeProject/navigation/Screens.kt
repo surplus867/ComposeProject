@@ -6,11 +6,11 @@ import com.example.composeProject.util.Constants.LIST_SCREEN
 import com.example.composeProject.util.Constants.SPLASH_SCREEN
 
 class Screens(navController: NavHostController) {
-    val splash: () -> Unit = {
+    /*val splash: () -> Unit = {
         navController.navigate(route = "list/${Action.NO_ACTION.name}") {
             popUpTo(SPLASH_SCREEN) { inclusive = true }
         }
-    }
+    }*/
     val list: (Int) -> Unit = { taskId ->
         navController.navigate(route = "task/$taskId")
     }

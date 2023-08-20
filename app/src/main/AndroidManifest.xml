@@ -17,7 +17,7 @@
             android:name="com.example.composeProject.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MyApplication34">
+            android:theme="@style/Theme.App.MySplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

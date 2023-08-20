@@ -1,5 +1,6 @@
 package com.example.composeProject.navigation.destination
 
+/*
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.fadeIn
@@ -30,4 +31,4 @@ fun AnimatedSplashScreen(navigateToListScreen: () -> Unit) {
     ) {
         SplashScreen(navigateToListScreen = navigateToListScreen)
     }
-}
+}*/
