@@ -84,7 +84,7 @@ dependencies {
     implementation 'androidx.work:work-runtime-ktx:2.8.1'
 
     // Compose Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.0")
+    implementation("androidx.navigation:navigation-compose:2.7.1")
 
     implementation "androidx.activity:activity-compose:1.7.2"
 
